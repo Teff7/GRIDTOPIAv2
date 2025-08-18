@@ -9,6 +9,12 @@ const clueHeaderEl = document.getElementById('clueHeader');
 const clueTextEl = document.getElementById('clueText');
 const mobileInput = document.getElementById('mobileInput');
 const btnPlay = document.getElementById('btnPlay');
+const topMenuWrap = document.getElementById('topMenuWrap');
+const btnMenu = document.getElementById('btnMenu');
+const menuPanel = document.getElementById('menuPanel');
+const menuHelp = document.getElementById('menuHelp');
+const menuRestart = document.getElementById('menuRestart');
+const hintDropdown = document.getElementById('hintDropdown');
 
 // Help + Hints
 const btnHelp = document.getElementById('btnHelp');
@@ -21,7 +27,7 @@ const btnHints = document.getElementById('btnHints');
 const hintMenu = document.getElementById('hintMenu');
 const btnHintDef = document.getElementById('hintDef');
 const btnHintLetter = document.getElementById('hintLetter');
-const btnHintAnalyse = document.getElementById('hintAnalyse');
+const btnHintAnalyse = document.getElementById('hintWordplay');
 
 const btnBack = document.getElementById('btnBack');
 
@@ -264,6 +270,9 @@ function setupHandlers(){
     const expanded = btnHints.getAttribute('aria-expanded') === 'true';
     btnHints.setAttribute('aria-expanded', String(!expanded));
     if (hintMenu) hintMenu.setAttribute('aria-hidden', String(expanded));
+    if (hintDropdown){
+      if (expanded) hintDropdown.classList.remove('open'); else hintDropdown.classList.add('open');
+    }
   });
   if (btnHintDef) btnHintDef.addEventListener('click', () => {
     clueTextEl.classList.toggle('help-on');
@@ -280,6 +289,47 @@ function setupHandlers(){
   });
   if (btnHintAnalyse) btnHintAnalyse.addEventListener('click', () => {
     clueTextEl.classList.toggle('annot-on');
+  });
+
+  // Top Menu dropdown
+  if (btnMenu) btnMenu.addEventListener('click', () => {
+    const expanded = btnMenu.getAttribute('aria-expanded') === 'true';
+    btnMenu.setAttribute('aria-expanded', String(!expanded));
+    if (menuPanel) menuPanel.setAttribute('aria-hidden', String(expanded));
+    if (topMenuWrap){
+      if (expanded) topMenuWrap.classList.remove('open'); else topMenuWrap.classList.add('open');
+    }
+  });
+  if (menuHelp) menuHelp.addEventListener('click', () => {
+    if (helpModal) helpModal.hidden = false;
+  });
+  if (menuRestart) menuRestart.addEventListener('click', () => {
+    restartGame();
+    // close menu
+    if (btnMenu) btnMenu.setAttribute('aria-expanded','false');
+    if (menuPanel) menuPanel.setAttribute('aria-hidden','true');
+    if (topMenuWrap) topMenuWrap.classList.remove('open');
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    const t = e.target;
+    // Hints
+    if (hintDropdown && !hintDropdown.contains(t)){
+      if (hintDropdown.classList.contains('open')){
+        hintDropdown.classList.remove('open');
+        if (btnHints) btnHints.setAttribute('aria-expanded','false');
+        if (hintMenu) hintMenu.setAttribute('aria-hidden','true');
+      }
+    }
+    // Top menu
+    if (topMenuWrap && !topMenuWrap.contains(t)){
+      if (topMenuWrap.classList.contains('open')){
+        topMenuWrap.classList.remove('open');
+        if (btnMenu) btnMenu.setAttribute('aria-expanded','false');
+        if (menuPanel) menuPanel.setAttribute('aria-hidden','true');
+      }
+    }
   });
 
   // Back
@@ -302,6 +352,12 @@ function setupHandlers(){
     else if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ nextCell(+1); renderLetters(); }
   });
 }
+function restartGame(){
+  // Clear all letters and reset to the first entry
+  entries.forEach(ent => ent.cells.forEach(c => { c.letter = ''; }));
+  setCurrentEntry(entries[0]);
+  renderLetters();
+}
 
 function escapeHtml(s=''){
   return String(s).replace(/[&<>"']/g, m => (
@@ -311,6 +367,9 @@ function escapeHtml(s=''){
 
 // ----- Boot -----
 window.addEventListener('load', () => {
+  // Set up UI handlers immediately
+  setupHandlers();
+
   fetch(FILE)
     .then(r => { if (!r.ok) throw new Error(`Failed to load ${FILE}: ${r.status}`); return r.json(); })
     .then(json => {
@@ -318,15 +377,25 @@ window.addEventListener('load', () => {
       buildGrid();
       placeEntries();
       setCurrentEntry((puzzle.entries||[])[0]);
-      setupHandlers();
     })
     .catch(err => {
-      console.error(err);
-      // Fallback so UI still works even if JSON is invalid
+      console.warn('Fetch failed, trying inline puzzleData:', err);
+      try{
+        var inline = document.getElementById('puzzleData');
+        if (inline && inline.textContent){
+          var json = JSON.parse(inline.textContent);
+          puzzle = json;
+          buildGrid();
+          placeEntries();
+          setCurrentEntry((puzzle.entries||[])[0]);
+          return;
+        }
+      } catch(e){ console.error('Inline JSON parse failed', e); }
+      // Final fallback so UI still works even if JSON is invalid
       puzzle = {
         grid: { rows: 5, cols: 5, blocks: [] },
         entries: [{ id:'1A', direction:'across', row:0, col:0, answer:'HELLO', clue:{ surface:'Wave politely (5)'} }]
       };
-      buildGrid(); placeEntries(); setCurrentEntry(puzzle.entries[0]); setupHandlers();
+      buildGrid(); placeEntries(); setCurrentEntry(puzzle.entries[0]);
     });
 });
