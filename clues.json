@@ -51,7 +51,7 @@
             "type": "indicator",
             "category": "hidden",
             "text": "Within",
-            "tooltip": "Look WITHIN, "win a neck..."
+            "tooltip": "Look WITHIN, "win a neck"
           },
           {
             "type": "fodder",
@@ -84,13 +84,13 @@
           {
             "type": "fodder",
             "text": "rotate and",
-            "tooltip": "Make it endless then follow the next instruction..."
+            "tooltip": "Make it endless then follow the next instruction"
           },
           {
             "type": "indicator",
             "category": "anagram",
             "text": "shuffle",
-            "tooltip": "Shuffle the remaining letters (ROTAT) to get these cards..."
+            "tooltip": "Shuffle the remaining letters (ROTAT) to get these cards."
           },
           {
             "type": "definition",
@@ -141,7 +141,7 @@
             "type": "indicator",
             "category": "lit",
             "text": "A single step!",
-            "tooltip": "...and literally so! aka &lit, a rare clue where what you see is what you get, sorry, not sorry, but that's all you get!"
+            "tooltip": "and literally so! aka &lit, a rare clue where what you see is what you get, sorry, not sorry, but that's all you get!"
           }
         ]
       }
@@ -159,7 +159,7 @@
             "type": "indicator",
             "category": "lit",
             "text": "Over the top!",
-            "tooltip": "...and literally so! aka &lit, an.. oops, not so rare clue where - oh you get the picture, no? Over+the top of \"the\" being \"t\" Over+t = OVERT, which overtly, is over the top... and literally so."
+            "tooltip": "and literally so! aka &lit, an- oops, not so rare clue where - oh you get the picture, no? Over+the top of \"the\" being \"t\" Over+t = OVERT, which overtly, is over the top, and literally so."
           }
         ]
       }
