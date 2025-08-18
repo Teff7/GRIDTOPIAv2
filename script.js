@@ -8,10 +8,12 @@ const gridEl = document.getElementById('grid');
 const clueHeaderEl = document.getElementById('clueHeader');
 const clueTextEl = document.getElementById('clueText');
 const mobileInput = document.getElementById('mobileInput');
+const btnPlay = document.getElementById('btnPlay');
 
 // Help + Hints
 const btnHelp = document.getElementById('btnHelp');
 const btnHelpGame = document.getElementById('btnHelpGame');
+const btnHelpBottom = document.getElementById('btnHelpBottom');
 const helpModal = document.getElementById('helpModal');
 const helpClose = document.getElementById('helpClose');
 
@@ -236,11 +238,15 @@ function finishGame(){
 
 // ----- Help & hints & misc -----
 function setupHandlers(){
+  // Play button
+  btnPlay?.addEventListener('click', startGame);
+
   // Help modal open/close
   const openHelp = () => { helpModal.hidden = false; };
   const closeHelp = () => { helpModal.hidden = true; };
   btnHelp?.addEventListener('click', openHelp);
   btnHelpGame?.addEventListener('click', openHelp);
+  btnHelpBottom?.addEventListener('click', openHelp);
   helpClose?.addEventListener('click', closeHelp);
 
   // Hints dropdown
