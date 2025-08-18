@@ -50,9 +50,21 @@ function startGame(){
   // Use the hidden attribute, not style.display
   welcome.hidden = true;
   game.hidden = false;
-  mobileInput?.focus();
+  if (mobileInput) mobileInput.focus();
 }
 window.startGame = startGame;
+
+// Wire Play immediately so it works even before data loads
+if (btnPlay) btnPlay.addEventListener('click', startGame);
+
+// Robust fallback: delegate click to handle dynamic or missed bindings
+document.addEventListener('click', function(e){
+  var target = e.target;
+  if (!target) return;
+  if (target.id === 'btnPlay' || (target.closest && target.closest('#btnPlay'))){
+    startGame();
+  }
+});
 
 // ----- Grid build -----
 function buildGrid(){
@@ -115,14 +127,14 @@ function placeEntries(){
 }
 
 function renderClue(ent){
-  const segs = ent.clue?.segments || [];
+  const segs = (ent.clue && ent.clue.segments) || [];
   const html = segs.length
     ? segs.map(s => {
         const cls = s.type === 'definition' ? 'def' : s.type;
         const tip = s.tooltip || TIP[s.category] || '';
         return `<span class="${cls}" data-tooltip="${escapeHtml(tip)}">${escapeHtml(s.text)}</span>`;
       }).join(' ')
-    : escapeHtml(ent.clue?.surface || '');
+    : escapeHtml((ent.clue && ent.clue.surface) || '');
   const dirLabel = ent.direction[0].toUpperCase() + ent.direction.slice(1);
   clueHeaderEl.textContent = `${ent.id} — ${dirLabel}`;
   clueTextEl.className = 'clue';
@@ -233,32 +245,30 @@ function submitAnswer(){
 }
 
 function finishGame(){
-  document.getElementById('fireworks')?.classList.add('on');
+  var fireworks = document.getElementById('fireworks');
+  if (fireworks) fireworks.classList.add('on');
 }
 
 // ----- Help & hints & misc -----
 function setupHandlers(){
-  // Play button
-  btnPlay?.addEventListener('click', startGame);
-
   // Help modal open/close
   const openHelp = () => { helpModal.hidden = false; };
   const closeHelp = () => { helpModal.hidden = true; };
-  btnHelp?.addEventListener('click', openHelp);
-  btnHelpGame?.addEventListener('click', openHelp);
-  btnHelpBottom?.addEventListener('click', openHelp);
-  helpClose?.addEventListener('click', closeHelp);
+  if (btnHelp) btnHelp.addEventListener('click', openHelp);
+  if (btnHelpGame) btnHelpGame.addEventListener('click', openHelp);
+  if (btnHelpBottom) btnHelpBottom.addEventListener('click', openHelp);
+  if (helpClose) helpClose.addEventListener('click', closeHelp);
 
   // Hints dropdown
-  btnHints?.addEventListener('click', () => {
+  if (btnHints) btnHints.addEventListener('click', () => {
     const expanded = btnHints.getAttribute('aria-expanded') === 'true';
     btnHints.setAttribute('aria-expanded', String(!expanded));
-    hintMenu?.setAttribute('aria-hidden', String(expanded));
+    if (hintMenu) hintMenu.setAttribute('aria-hidden', String(expanded));
   });
-  btnHintDef?.addEventListener('click', () => {
+  if (btnHintDef) btnHintDef.addEventListener('click', () => {
     clueTextEl.classList.toggle('help-on');
   });
-  btnHintLetter?.addEventListener('click', () => {
+  if (btnHintLetter) btnHintLetter.addEventListener('click', () => {
     if (!currentEntry) return;
     const empties = currentEntry.cells.map((c,i)=>c.letter?null:i).filter(i=>i!==null);
     if (!empties.length) return;
@@ -268,18 +278,18 @@ function setupHandlers(){
     activeCellKey = key(currentEntry.cells[idx].r, currentEntry.cells[idx].c);
     renderLetters();
   });
-  btnHintAnalyse?.addEventListener('click', () => {
+  if (btnHintAnalyse) btnHintAnalyse.addEventListener('click', () => {
     clueTextEl.classList.toggle('annot-on');
   });
 
   // Back
-  btnBack?.addEventListener('click', () => {
+  if (btnBack) btnBack.addEventListener('click', () => {
     game.hidden = true;
     welcome.hidden = false;
   });
 
   // Typing
-  mobileInput?.addEventListener('input', e => {
+  if (mobileInput) mobileInput.addEventListener('input', e => {
     const char = e.data || e.target.value;
     if (/^[a-zA-Z]$/.test(char)) typeChar(char);
     e.target.value = '';
