@@ -31,6 +31,10 @@ const btnHintAnalyse = document.getElementById('hintWordplay');
 
 const btnBack = document.getElementById('btnBack');
 
+// Additional controls
+const btnGiveUp = document.getElementById('btnGiveUp');
+const btnShare = document.getElementById('btnShare');
+
 let puzzle = null;
 let grid = [];
 let cellMap = new Map();
@@ -134,13 +138,26 @@ function placeEntries(){
 
 function renderClue(ent){
   const segs = (ent.clue && ent.clue.segments) || [];
-  const html = segs.length
-    ? segs.map(s => {
-        const cls = s.type === 'definition' ? 'def' : s.type;
-        const tip = s.tooltip || TIP[s.category] || '';
-        return `<span class="${cls}" data-tooltip="${escapeHtml(tip)}">${escapeHtml(s.text)}</span>`;
-      }).join(' ')
-    : escapeHtml((ent.clue && ent.clue.surface) || '');
+  let html;
+  if (segs.length) {
+    // Build annotated segments from the clue.
+    // Each segment is wrapped in a span with a class corresponding to its type
+    // and a data-tooltip attribute for the hover text.
+    html = segs.map(seg => {
+      const cls = seg.type === 'definition' ? 'def' : seg.type;
+      // Use provided tooltip or fall back to generic hint based on category.
+      const tip = seg.tooltip || TIP[seg.category] || '';
+      return `<span class="${cls}" data-tooltip="${escapeHtml(tip)}">${escapeHtml(seg.text)}</span>`;
+    }).join(' ');
+    // Append enumeration (answer length) in parentheses at the end.
+    const enumeration = ent.answer ? String(ent.answer.length) : '';
+    if (enumeration) {
+      html += ` (<span class="enumeration">${enumeration}</span>)`;
+    }
+  } else {
+    // Use the clue surface as-is; it may already contain enumeration
+    html = escapeHtml((ent.clue && ent.clue.surface) || '');
+  }
   const dirLabel = ent.direction[0].toUpperCase() + ent.direction.slice(1);
   clueHeaderEl.textContent = `${ent.id} — ${dirLabel}`;
   clueTextEl.className = 'clue';
@@ -148,24 +165,32 @@ function renderClue(ent){
 }
 
 function renderLetters(){
+  // First clear existing letter elements and remove active state
   grid.flat().forEach(cell => {
-    // keep numbers
+    // Remove any children that are not the number overlay
     [...cell.el.childNodes].forEach(n => {
-      if (!(n.nodeType===1 && n.classList.contains('num'))) cell.el.removeChild(n);
+      if (n.nodeType === 1 && n.classList.contains('num')) return;
+      cell.el.removeChild(n);
     });
     cell.el.classList.remove('active');
   });
-  entries.forEach(ent => {
-    ent.cells.forEach(cell => {
-      if (cell.letter){
-        const d = document.createElement('div');
-        d.style.display='grid'; d.style.placeItems='center';
-        d.style.width='100%'; d.style.height='100%';
-        d.style.fontWeight='700';
-        d.textContent = cell.letter;
-        cell.el.appendChild(d);
-      }
-    });
+  // Render letters.  Instead of iterating through entries (which would
+  // duplicate letters when a cell belongs to multiple entries), iterate
+  // through every cell once.  For each cell with a letter, append a
+  // single letter element.  This avoids the duplicated letters seen
+  // when filling answers that cross.
+  grid.flat().forEach(cell => {
+    if (cell.letter) {
+      const d = document.createElement('div');
+      d.className = 'letter';
+      d.style.display = 'grid';
+      d.style.placeItems = 'center';
+      d.style.width = '100%';
+      d.style.height = '100%';
+      d.style.fontWeight = '700';
+      d.textContent = cell.letter;
+      cell.el.appendChild(d);
+    }
   });
   highlightActive();
 }
@@ -311,6 +336,61 @@ function setupHandlers(){
     if (topMenuWrap) topMenuWrap.classList.remove('open');
   });
 
+  // Reveal answer: fill the current entry with the correct letters and mark it as solved
+  if (btnGiveUp) btnGiveUp.addEventListener('click', () => {
+    if (!currentEntry) return;
+    // Fill in all letters for the active entry
+    currentEntry.cells.forEach((cell, idx) => {
+      cell.letter = currentEntry.answer[idx];
+    });
+    renderLetters();
+    submitAnswer();
+  });
+
+  // Share result: construct a simple textual representation of the grid and copy it to clipboard
+  if (btnShare) btnShare.addEventListener('click', () => {
+    if (!puzzle) return;
+    // Build rows of the current grid for sharing
+    const rows = [];
+    for (let r = 0; r < grid.length; r++) {
+      let row = '';
+      for (let c = 0; c < grid[r].length; c++) {
+        const cell = grid[r][c];
+        if (cell.block) row += '⬛';
+        else if (cell.letter) row += cell.letter;
+        else row += '⬜';
+      }
+      rows.push(row);
+    }
+    const header = `Daily 5×5 Cryptic${puzzle.id ? ' ' + puzzle.id : ''}`;
+    const shareText = header + '\n' + rows.join('\n');
+    // Attempt to use the Clipboard API
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert('Copied your grid to the clipboard!');
+      }).catch(err => {
+        console.warn('Clipboard copy failed', err);
+        alert('Unable to copy your results');
+      });
+    } else {
+      // Fallback using a temporary textarea
+      const temp = document.createElement('textarea');
+      temp.value = shareText;
+      temp.style.position = 'fixed';
+      temp.style.top = '-1000px';
+      document.body.appendChild(temp);
+      temp.focus();
+      temp.select();
+      try {
+        document.execCommand('copy');
+        alert('Copied your grid to the clipboard!');
+      } catch (e) {
+        alert('Unable to copy your results');
+      }
+      document.body.removeChild(temp);
+    }
+  });
+
   // Close dropdowns when clicking outside
   document.addEventListener('click', (e) => {
     const t = e.target;
@@ -371,34 +451,43 @@ window.addEventListener('load', () => {
   setupHandlers();
 
   // 1) Try inline JSON first (most reliable on static hosts)
-  try{
-    var inline = document.getElementById('puzzleData');
-    if (inline && inline.textContent){
-      var json = JSON.parse(inline.textContent);
-      puzzle = json;
-      buildGrid();
-      placeEntries();
-      setCurrentEntry((puzzle.entries||[])[0]);
-      return;
+  let inlineLoaded = false;
+  const inline = document.getElementById('puzzleData');
+  if (inline && inline.textContent) {
+    try {
+      puzzle = JSON.parse(inline.textContent);
+      inlineLoaded = true;
+    } catch (e) {
+      console.error('Inline JSON parse failed', e);
     }
-  } catch(e){ console.error('Inline JSON parse failed', e); }
-
-  // 2) Fallback to fetching the file
-  fetch('/' + FILE)
-    .then(r => { if (!r.ok) throw new Error(`Failed to load ${FILE}: ${r.status}`); return r.json(); })
+  }
+  if (inlineLoaded) {
+    buildGrid();
+    placeEntries();
+    setCurrentEntry((puzzle.entries || [])[0]);
+    return;
+  }
+  // 2) Fallback to fetching the file relative to this location
+  fetch(FILE)
+    .then(r => {
+      if (!r.ok) throw new Error(`Failed to load ${FILE}: ${r.status}`);
+      return r.json();
+    })
     .then(json => {
       puzzle = json;
       buildGrid();
       placeEntries();
-      setCurrentEntry((puzzle.entries||[])[0]);
+      setCurrentEntry((puzzle.entries || [])[0]);
     })
     .catch(err => {
       console.warn('All data sources failed, using tiny placeholder:', err);
       // Final fallback so UI still works even if JSON is invalid
       puzzle = {
         grid: { rows: 5, cols: 5, blocks: [] },
-        entries: [{ id:'1A', direction:'across', row:0, col:0, answer:'HELLO', clue:{ surface:'Wave politely (5)'} }]
+        entries: [{ id: '1A', direction: 'across', row: 0, col: 0, answer: 'HELLO', clue: { surface: 'Wave politely (5)' } }]
       };
-      buildGrid(); placeEntries(); setCurrentEntry(puzzle.entries[0]);
+      buildGrid();
+      placeEntries();
+      setCurrentEntry(puzzle.entries[0]);
     });
 });
