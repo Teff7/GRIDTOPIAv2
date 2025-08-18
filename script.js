@@ -370,7 +370,21 @@ window.addEventListener('load', () => {
   // Set up UI handlers immediately
   setupHandlers();
 
-  fetch(FILE)
+  // 1) Try inline JSON first (most reliable on static hosts)
+  try{
+    var inline = document.getElementById('puzzleData');
+    if (inline && inline.textContent){
+      var json = JSON.parse(inline.textContent);
+      puzzle = json;
+      buildGrid();
+      placeEntries();
+      setCurrentEntry((puzzle.entries||[])[0]);
+      return;
+    }
+  } catch(e){ console.error('Inline JSON parse failed', e); }
+
+  // 2) Fallback to fetching the file
+  fetch('/' + FILE)
     .then(r => { if (!r.ok) throw new Error(`Failed to load ${FILE}: ${r.status}`); return r.json(); })
     .then(json => {
       puzzle = json;
@@ -379,18 +393,7 @@ window.addEventListener('load', () => {
       setCurrentEntry((puzzle.entries||[])[0]);
     })
     .catch(err => {
-      console.warn('Fetch failed, trying inline puzzleData:', err);
-      try{
-        var inline = document.getElementById('puzzleData');
-        if (inline && inline.textContent){
-          var json = JSON.parse(inline.textContent);
-          puzzle = json;
-          buildGrid();
-          placeEntries();
-          setCurrentEntry((puzzle.entries||[])[0]);
-          return;
-        }
-      } catch(e){ console.error('Inline JSON parse failed', e); }
+      console.warn('All data sources failed, using tiny placeholder:', err);
       // Final fallback so UI still works even if JSON is invalid
       puzzle = {
         grid: { rows: 5, cols: 5, blocks: [] },
