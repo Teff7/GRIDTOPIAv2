@@ -1,0 +1,102 @@
+
+{
+  "id": "2025-08-19",
+  "grid": {
+    "rows": 5,
+    "cols": 5,
+    "blocks": [[1,1], [1,3], [3,1], [3,3]],
+    "numbers": {
+      "all": [[0,0,"1"], [0,2,"2"], [0,4,"3"], [2,0,"2"], [4,0,"3"]]
+    }
+  },
+  "entries": [
+    {
+      "id": "1A",
+      "direction": "across",
+      "row": 0,
+      "col": 0,
+      "answer": "DISCO",
+      "clue": {
+        "surface": "At first, did I seem cautious over a certain type of fever? (5)",
+        "segments": [
+          { "type": "indicator", "category": "acrostic", "text": "At first", "tooltip": "Acrostic indicator — take the first letters of the following words." },
+          { "type": "fodder", "text": "did I seem cautious over", "tooltip": "😉 D id I S eem C autious O ver 😉" },
+          { "type": "definition", "text": "a certain type of fever?", "tooltip": "Definition" }
+        ]
+      }
+    },
+    {
+      "id": "2A",
+      "direction": "across",
+      "row": 2,
+      "col": 0,
+      "answer": "INANE",
+      "clue": {
+        "surface": "Win a necktie within (Boring!) (5)",
+        "segments": [
+          { "type": "indicator", "category": "hidden", "text": "within", "tooltip": "Hidden‑word indicator — look within the fodder." },
+          { "type": "fodder", "text": "Win a necktie", "tooltip": "…w[ IN A NE ]cktie…" },
+          { "type": "definition", "text": "(Boring!)", "tooltip": "Definition" }
+        ]
+      }
+    },
+    {
+      "id": "3A",
+      "direction": "across",
+      "row": 4,
+      "col": 0,
+      "answer": "TAROT",
+      "clue": {
+        "surface": "Endlessly rotate and shuffle these cards (5)",
+        "segments": [
+          { "type": "indicator", "category": "deletion", "text": "Endlessly", "tooltip": "Delete the end of the next word." },
+          { "type": "fodder", "text": "rotate", "tooltip": "ROTATE → ROTAT(e) after deletion" },
+          { "type": "indicator", "category": "anagram", "text": "shuffle", "tooltip": "Anagram indicator — shuffle the letters." },
+          { "type": "definition", "text": "these cards", "tooltip": "Definition" }
+        ]
+      }
+    },
+    {
+      "id": "1D",
+      "direction": "down",
+      "row": 0,
+      "col": 0,
+      "answer": "DRIFT",
+      "clue": {
+        "surface": "Five hundred fight and then go with the tide. (5)",
+        "segments": [
+          { "type": "indicator", "category": "charade", "text": "—", "tooltip": "Charade — build the answer from parts." },
+          { "type": "fodder", "text": "Five hundred", "tooltip": "Roman numeral: D = 500" },
+          { "type": "fodder", "text": "fight", "tooltip": "RIFT = fight" },
+          { "type": "definition", "text": "go with the tide", "tooltip": "Definition" }
+        ]
+      }
+    },
+    {
+      "id": "2D",
+      "direction": "down",
+      "row": 0,
+      "col": 2,
+      "answer": "STAIR",
+      "clue": {
+        "surface": "A single step!, (&Lit) (5)",
+        "segments": [
+          { "type": "indicator", "category": "lit", "text": "A single step!", "tooltip": "“&lit” — the whole clue is both definition and wordplay." }
+        ]
+      }
+    },
+    {
+      "id": "3D",
+      "direction": "down",
+      "row": 0,
+      "col": 4,
+      "answer": "OVERT",
+      "clue": {
+        "surface": "Over the top! (5) (&lit)",
+        "segments": [
+          { "type": "indicator", "category": "lit", "text": "Over the top!", "tooltip": "Over + T (top’s first letter) → OVERT; &lit." }
+        ]
+      }
+    }
+  ]
+}

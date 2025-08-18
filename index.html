@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily 5×5 Cryptic</title>
+  <!-- Link to the unified stylesheet -->
+  <link rel="stylesheet" href="style (2).css" />
+</head>
+<body>
+  <!-- Hidden input to capture mobile keystrokes -->
+  <input id="mobileInput" inputmode="text" maxlength="1" autocomplete="off" autocapitalize="characters"
+         style="opacity:0; position:absolute; left:-10000px;" />
+
+  <!-- Welcome / Landing page -->
+  <section id="welcome" class="welcome-screen">
+    <h1 class="brand">Daily 5×5 Cryptic</h1>
+    <p class="intro-text">A teaching‑first mini cryptic crossword. Solve three Across and three Down clues using the wit of wordplay and a few helpful hints.</p>
+
+    <!-- Roadmap icons (optional milestones) -->
+    <div class="roadmap" aria-label="Roadmap">
+      <div class="road-item" data-tip="Phase 1: MVP — one puzzle/day, JSON storage, sharing.">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+      </div>
+      <div class="road-item" data-tip="Phase 2: Whānau Studio — dev, clue design, social, testing.">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm-7 9v-2a5 5 0 015-5h4a5 5 0 015 5v2H5z"/></svg>
+      </div>
+      <div class="road-item" data-tip="Phase 3: Growth — ko‑fi/patreon, themes, leaderboards, community clues.">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 21s-6-3.35-9-7.5C-0.04 9.82 2.64 4 7.5 4A5.5 5.5 0 0112 6.09 5.5 5.5 0 0116.5 4C21.36 4 24.04 9.82 21 13.5 18 17.65 12 21 12 21z"/></svg>
+      </div>
+      <div class="road-item" data-tip="Phase 4: Full Studio — branding, more games, schools & libraries, premium packs.">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M5 22l7-3 7 3V3l-7 3-7-3z"/></svg>
+      </div>
+    </div>
+
+    <div class="welcome-actions">
+      <button class="play-button" id="btnPlay" onclick="startGame()">Play today’s puzzle</button>
+      <button class="help-button" id="btnHelp">Help (no judgement)</button>
+    </div>
+  </section>
+
+  <!-- Game screen -->
+  <section id="game" class="game-screen" hidden>
+    <div class="top-bar">
+      <button class="back-button" id="btnBack" aria-label="Back to menu">← Menu</button>
+      <div id="puzzleDate" class="date"></div>
+      <div class="actions">
+        <div class="dropdown">
+          <button class="help-button small" id="btnHints" aria-expanded="false">Hints ▾ (psst…)</button>
+          <div class="menu" id="hintMenu" role="menu" aria-hidden="true">
+            <button class="menu-item" id="hintDef">Reveal definition (plain English)</button>
+            <button class="menu-item" id="hintLetter">Reveal a letter</button>
+            <button class="menu-item" id="hintAnalyse">Explain the trick</button>
+          </div>
+        </div>
+        <button class="help-button small" id="btnGiveUp" title="Reveal this entry">Reveal answer</button>
+        <button class="help-button small" id="btnShare" title="Copy share result">Share your glory</button>
+        <button class="help-button small" id="btnHelpGame">Help (no judgement)</button>
+      </div>
+    </div>
+
+    <div id="grid" class="grid" role="application" aria-label="5 by 5 crossword grid"></div>
+
+    <div id="cluePanel" class="clue-panel">
+      <div id="clueHeader" class="clue-header">—</div>
+      <div id="clueText" class="clue"></div>
+    </div>
+  </section>
+
+  <!-- Help modal -->
+  <div id="helpModal" class="modal" hidden>
+    <div class="modal-card">
+      <button class="modal-close" id="helpClose" aria-label="Close">×</button>
+      <h2>How cryptic crosswords work (and how this game teaches them)</h2>
+      <p>Each clue has two halves:</p>
+      <ul>
+        <li><strong>Definition</strong> — plain meaning of the answer.</li>
+        <li><strong>Wordplay</strong> — instructions to build the answer (e.g., anagram, container, hidden).</li>
+      </ul>
+      <p>In this game, select a square to focus an entry. Use the <em>Hints</em> menu if you’re learning:</p>
+      <ul>
+        <li><strong>Reveal definition</strong> highlights the definition part.</li>
+        <li><strong>Reveal a letter</strong> fills a random empty cell in the entry.</li>
+        <li><strong>Explain the trick</strong> colours and tool‑tips the indicator and fodder.</li>
+      </ul>
+      <p>Click a numbered square to toggle Between Across and Down on that start square. Clicking any other white square selects its single entry. Type letters — the cursor moves along the entry. Backspace moves back. When an entry is correct, it will lock in. You can also “Reveal answer” to see it immediately.</p>
+      <p>Today’s mini has three Across and three Down entries (all five letters). Have fun, learn a trick or two, and share your result!</p>
+    </div>
+  </div>
+
+  <div id="fireworks" class="fireworks" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

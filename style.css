@@ -1,0 +1,350 @@
+/* Unified styling for the Daily 5×5 Cryptic crossword game.
+ *
+ * This sheet merges the original 5×5 puzzle style with the refined
+ * single‑clue MVP aesthetic. It uses a warm system‑UI font stack, a dark
+ * background with high‑contrast white squares, and consistent radii and
+ * colours throughout. Variables at the top define the palette and sizes
+ * used across the app for easy tweaks.
+ */
+
+/* Colour, size and radius tokens */
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --muted:#bbb;
+  --good:#1db954;
+  --bad:#e53935;
+  --hint:#999;
+  --focus:#8ab4f8;
+  --cell:44px;
+  --r-xs:8px;
+  --r:12px;
+  --r-lg:16px;
+}
+
+*{ box-sizing:border-box; }
+
+html,body,button,input{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Inter", "Atkinson Hyperlegible", "Noto Sans", sans-serif;
+  line-height:1.4;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--fg);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+/* Welcome and game screens share a full‑height flex column layout */
+.welcome-screen,
+.game-screen{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  text-align:center;
+}
+
+.brand{
+  font-weight:800;
+  letter-spacing:.02em;
+  font-size:2rem;
+  margin:0;
+}
+
+/* Introductory tagline on the welcome screen */
+.intro-text{
+  margin-top:.5rem;
+  color:var(--muted);
+  font-size:1rem;
+  max-width:600px;
+  line-height:1.4;
+}
+
+/* Roadmap icons */
+.roadmap{
+  display:flex;
+  gap:1rem;
+  margin:1rem 0;
+}
+.road-item{
+  width:56px; height:56px;
+  border:2px solid var(--fg);
+  border-radius:var(--r);
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.icon{
+  width:28px; height:28px;
+  fill:var(--fg);
+}
+/* Tooltip for roadmap items */
+.road-item::after{
+  content:attr(data-tip);
+  position:absolute;
+  left:50%;
+  transform:translate(-50%,calc(-100% - 10px));
+  background:#fff;
+  color:#000;
+  padding:.4rem .6rem;
+  border-radius:var(--r-xs);
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s;
+  font-size:.85rem;
+}
+.road-item:hover::after{ opacity:1; }
+
+/* Action buttons on the welcome screen */
+.welcome-actions{
+  display:flex;
+  gap:.75rem;
+}
+.play-button,
+.help-button,
+.back-button{
+  border:2px solid var(--fg);
+  background:transparent;
+  color:var(--fg);
+  padding:.55rem 1rem;
+  border-radius:var(--r);
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .08s, background-color .12s, color .12s, border-color .12s;
+}
+.play-button:active,
+.help-button:active,
+.back-button:active{
+  transform:scale(.98);
+}
+.help-button.small{
+  padding:.35rem .6rem;
+  font-size:.9rem;
+}
+
+/* Top bar for the game: back button, date and actions */
+.top-bar{
+  width:min(520px,92vw);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+.date{ opacity:.8; }
+
+/* Dropdown container */
+.dropdown{
+  position:relative;
+}
+/* Dropdown menu, centred under the button */
+.dropdown .menu{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  border:1px solid #444;
+  border-radius:var(--r-lg);
+  padding:.4rem;
+  display:none;
+  min-width:200px;
+  z-index:10;
+}
+.dropdown.open .menu{ display:block; }
+.menu-item{
+  width:100%;
+  background:transparent;
+  color:var(--fg);
+  border:0;
+  text-align:left;
+  padding:.5rem .6rem;
+  border-radius:var(--r);
+  cursor:pointer;
+  font-size:.9rem;
+  transition:transform .08s, background-color .12s, color .12s;
+}
+.menu-item:hover{
+  background:#1e1e1e;
+}
+.menu-item:active{
+  transform:scale(.97);
+}
+.menu-item[disabled]{
+  opacity:.55;
+  cursor:default;
+}
+
+/* Grid layout: 5×5 crossword cells */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,var(--cell));
+  grid-template-rows:repeat(5,var(--cell));
+  gap:4px;
+  margin-top:.5rem;
+}
+.cell{
+  width:var(--cell);
+  height:var(--cell);
+  display:grid;
+  place-items:center;
+  background:#fff;
+  color:#000;
+  border:2px solid #fff;
+  position:relative;
+  font-size:1.2rem;
+  font-weight:700;
+  user-select:none;
+}
+.cell.block{
+  background:#000;
+  border-color:#000;
+  color:#000;
+}
+.cell .num{
+  position:absolute;
+  top:2px;
+  left:4px;
+  font-size:.65rem;
+  color:#000;
+  font-weight:700;
+}
+/* Flashing active cell. Provide outline for contrast */
+.cell.active{
+  animation:flash 1s infinite alternate;
+  outline:2px solid var(--fg);
+}
+@keyframes flash{
+  0% { background:#fff; color:#000; }
+  100% { background:#000; color:#fff; }
+}
+/* Accessible focus ring */
+:focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:2px;
+}
+
+/* Clue panel and colouring */
+.clue-panel{
+  width:min(520px,92vw);
+}
+.clue-header{
+  opacity:.9;
+  margin-top:1rem;
+}
+.clue{
+  font-size:1.1rem;
+  margin:.5rem auto 0;
+  position:relative;
+}
+.clue .indicator,
+.clue .fodder,
+.clue .def{
+  position:relative;
+}
+/* Definition highlight in definition hint mode */
+.clue.help-on .def{
+  color:hotpink;
+}
+/* Indicator and fodder colours in analyse mode */
+.clue.annot-on .indicator{
+  color:var(--indicator-col,#9ad);
+}
+.clue.annot-on .fodder{
+  color:#f47;
+}
+/* Tooltip for annotated segments */
+.clue .indicator:hover::after,
+.clue .fodder:hover::after,
+.clue .def:hover::after{
+  content:attr(data-tip);
+  position:absolute;
+  left:50%;
+  transform:translate(-50%,8px);
+  background:#fff;
+  color:#000;
+  padding:.25rem .4rem;
+  border-radius:var(--r-xs);
+  font-size:.8rem;
+  white-space:nowrap;
+  z-index:20;
+}
+
+/* Colour by indicator category */
+.clue.acrostic    { --indicator-col:#6fa8dc; }
+.clue.hidden      { --indicator-col:#4caf50; }
+.clue.container   { --indicator-col:#b97aeb; }
+.clue.reversal    { --indicator-col:#20b2aa; }
+.clue.deletion    { --indicator-col:#ffca28; }
+.clue.homophone   { --indicator-col:#e91e63; }
+.clue.anagram     { --indicator-col:#6fa8dc; }
+.clue.charade     { --indicator-col:#8d6e63; }
+.clue.double      { --indicator-col:#9e9e9e; }
+.clue.lit         { --indicator-col:#c0c0c0; }
+
+/* Modal (help) */
+.modal{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.6);
+  z-index:50;
+}
+.modal[hidden]{ display:none; }
+.modal-card{
+  position:relative;
+  background:#111;
+  border:1px solid #444;
+  border-radius:var(--r-lg);
+  padding:1rem 1.25rem;
+  max-height:86vh;
+  max-width:680px;
+  width:92vw;
+  overflow:auto;
+  color:var(--fg);
+}
+.modal-close{
+  position:sticky;
+  top:0;
+  margin-left:auto;
+  border:0;
+  background:transparent;
+  color:var(--fg);
+  font-size:2rem;
+  cursor:pointer;
+}
+
+/* Fireworks celebration */
+.fireworks{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+.pixel{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:#fff;
+}
+
+/* Reduced motion: disable flashing animations and provide static outline */
+@media (prefers-reduced-motion: reduce){
+  .cell.active{
+    animation:none;
+    background:var(--bg);
+    color:var(--fg);
+    outline:2px solid var(--fg);
+  }
+}
