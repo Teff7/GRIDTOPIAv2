@@ -19,9 +19,22 @@
       "clue": {
         "surface": "At first, did I seem cautious over a certain type of fever? (5)",
         "segments": [
-          { "type": "indicator", "category": "acrostic", "text": "At first", "tooltip": "Acrostic indicator — take the first letters of the following words." },
-          { "type": "fodder", "text": "did I seem cautious over", "tooltip": "😉 D id I S eem C autious O ver 😉" },
-          { "type": "definition", "text": "a certain type of fever?", "tooltip": "Definition" }
+          {
+            "type": "indicator",
+            "category": "acrostic",
+            "text": "At first",
+            "tooltip": "Acrostic Indicator - take the first letters of the following words:"
+          },
+          {
+            "type": "fodder",
+            "text": "did I seem cautious over",
+            "tooltip": ";) D id I S eem C autious O ver ;)"
+          },
+          {
+            "type": "definition",
+            "text": "a certain type of fever?",
+            "tooltip": "The Definition"
+          }
         ]
       }
     },
@@ -34,9 +47,22 @@
       "clue": {
         "surface": "Win a necktie within (Boring!) (5)",
         "segments": [
-          { "type": "indicator", "category": "hidden", "text": "within", "tooltip": "Hidden‑word indicator — look within the fodder." },
-          { "type": "fodder", "text": "Win a necktie", "tooltip": "…w[ IN A NE ]cktie…" },
-          { "type": "definition", "text": "(Boring!)", "tooltip": "Definition" }
+          {
+            "type": "indicator",
+            "category": "hidden",
+            "text": "Within",
+            "tooltip": "Look WITHIN, "win a neck..."
+          },
+          {
+            "type": "fodder",
+            "text": "Win a necktie",
+            "tooltip": "wINANEcktie"
+          },
+          {
+            "type": "definition",
+            "text": "(Boring!)",
+            "tooltip": "The Definition"
+          }
         ]
       }
     },
@@ -49,10 +75,28 @@
       "clue": {
         "surface": "Endlessly rotate and shuffle these cards (5)",
         "segments": [
-          { "type": "indicator", "category": "deletion", "text": "Endlessly", "tooltip": "Delete the end of the next word." },
-          { "type": "fodder", "text": "rotate", "tooltip": "ROTATE → ROTAT(e) after deletion" },
-          { "type": "indicator", "category": "anagram", "text": "shuffle", "tooltip": "Anagram indicator — shuffle the letters." },
-          { "type": "definition", "text": "these cards", "tooltip": "Definition" }
+          {
+            "type": "indicator",
+            "category": "deletion",
+            "text": "Endlessly",
+            "tooltip": "the next word, with no end? (ROTAT-e)"
+          },
+          {
+            "type": "fodder",
+            "text": "rotate and",
+            "tooltip": "Make it endless then follow the next instruction..."
+          },
+          {
+            "type": "indicator",
+            "category": "anagram",
+            "text": "shuffle",
+            "tooltip": "Shuffle the remaining letters (ROTAT) to get these cards..."
+          },
+          {
+            "type": "definition",
+            "text": "these cards",
+            "tooltip": "The Definition"
+          }
         ]
       }
     },
@@ -65,10 +109,22 @@
       "clue": {
         "surface": "Five hundred fight and then go with the tide. (5)",
         "segments": [
-          { "type": "indicator", "category": "charade", "text": "—", "tooltip": "Charade — build the answer from parts." },
-          { "type": "fodder", "text": "Five hundred", "tooltip": "Roman numeral: D = 500" },
-          { "type": "fodder", "text": "fight", "tooltip": "RIFT = fight" },
-          { "type": "definition", "text": "go with the tide", "tooltip": "Definition" }
+          {
+            "type": "indicator",
+            "category": "charade",
+            "text": "Five hundred",
+            "tooltip": "Five Hundred Romans, Perhaps? (Just one letter)"
+          },
+          {
+            "type": "fodder",
+            "text": "fight and then",
+            "tooltip": "Another word for a fight? (rhymes with \"lift\")"
+          },
+          {
+            "type": "definition",
+            "text": "go with the tide",
+            "tooltip": "The Definition"
+          }
         ]
       }
     },
@@ -81,7 +137,12 @@
       "clue": {
         "surface": "A single step!, (&Lit) (5)",
         "segments": [
-          { "type": "indicator", "category": "lit", "text": "A single step!", "tooltip": "“&lit” — the whole clue is both definition and wordplay." }
+          {
+            "type": "indicator",
+            "category": "lit",
+            "text": "A single step!",
+            "tooltip": "...and literally so! aka &lit, a rare clue where what you see is what you get, sorry, not sorry, but that's all you get!"
+          }
         ]
       }
     },
@@ -94,7 +155,12 @@
       "clue": {
         "surface": "Over the top! (5) (&lit)",
         "segments": [
-          { "type": "indicator", "category": "lit", "text": "Over the top!", "tooltip": "Over + T (top’s first letter) → OVERT; &lit." }
+          {
+            "type": "indicator",
+            "category": "lit",
+            "text": "Over the top!",
+            "tooltip": "...and literally so! aka &lit, an.. oops, not so rare clue where - oh you get the picture, no? Over+the top of \"the\" being \"t\" Over+t = OVERT, which overtly, is over the top... and literally so."
+          }
         ]
       }
     }
