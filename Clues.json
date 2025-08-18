@@ -1,4 +1,3 @@
-
 {
   "id": "2025-08-19",
   "grid": {
@@ -51,7 +50,7 @@
             "type": "indicator",
             "category": "hidden",
             "text": "Within",
-            "tooltip": "Look WITHIN, "win a neck..."
+            "tooltip": "Look WITHIN, \"win a neck...\""
           },
           {
             "type": "fodder",
