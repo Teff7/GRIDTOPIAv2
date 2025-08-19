@@ -10,8 +10,8 @@
   },
   "entries": [
     {
-      "id": "1A",
-      "direction": "across",
+      "id": "1 across",
+      "direction": "",
       "row": 0,
       "col": 0,
       "answer": "DISCO",
@@ -38,8 +38,8 @@
       }
     },
     {
-      "id": "2A",
-      "direction": "across",
+      "id": "2 across",
+      "direction": "",
       "row": 2,
       "col": 0,
       "answer": "INANE",
@@ -66,8 +66,8 @@
       }
     },
     {
-      "id": "3A",
-      "direction": "across",
+      "id": "3 across",
+      "direction": "",
       "row": 4,
       "col": 0,
       "answer": "TAROT",
@@ -100,8 +100,8 @@
       }
     },
     {
-      "id": "1D",
-      "direction": "down",
+      "id": "1 down",
+      "direction": "",
       "row": 0,
       "col": 0,
       "answer": "DRIFT",
@@ -128,8 +128,8 @@
       }
     },
     {
-      "id": "2D",
-      "direction": "down",
+      "id": "2 down",
+      "direction": "",
       "row": 0,
       "col": 2,
       "answer": "STAIR",
@@ -146,8 +146,8 @@
       }
     },
     {
-      "id": "3D",
-      "direction": "down",
+      "id": "3 down",
+      "direction": "",
       "row": 0,
       "col": 4,
       "answer": "OVERT",
