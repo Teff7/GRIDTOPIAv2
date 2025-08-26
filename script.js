@@ -497,8 +497,13 @@ window.addEventListener('load', () => {
   const inline = document.getElementById('puzzleData');
   if (inline && inline.textContent) {
     try {
-      puzzle = JSON.parse(inline.textContent);
-      inlineLoaded = true;
+      const parsed = JSON.parse(inline.textContent);
+      const converted = convertClues(parsed, CROSSWORD_ID);
+      if (converted.length) {
+        puzzle = parsed;
+        puzzle.entries = converted;
+        inlineLoaded = true;
+      }
     } catch (e) {
       console.error('Inline JSON parse failed', e);
     }
