@@ -70,19 +70,26 @@ body{margin:0; background:var(--bg); color:var(--fg);
   font-size: 0.9rem;
   font-style: italic;
 }
-.clue .indicator,.clue .fodder,.clue .def{ position:relative }
-.clue.annot-on .indicator{ color:#9ad; }
+.clue span[data-tooltip]{ position:relative }
 .clue.annot-on .fodder{ color:#f47; }
 .clue.help-on .def{ color:hotpink; }
+.clue.annot-on .anagram   { color:#6fa8dc; }
+.clue.annot-on .reversal  { color:#20b2aa; }
+.clue.annot-on .container { color:#b97aeb; }
+.clue.annot-on .charade   { color:#8d6e63; }
+.clue.annot-on .deletion  { color:#ffca28; }
+.clue.annot-on .acrostic  { color:#6fa8dc; }
+.clue.annot-on .hidden    { color:#4caf50; }
+.clue.annot-on .homophone { color:#e91e63; }
+.clue.annot-on .double    { color:#9e9e9e; }
+.clue.annot-on .lit       { color:#c0c0c0; }
 
 /* Tooltips — only visible in analyse mode */
 /* Tooltips appear when hovering annotated clue segments. Use the
    data-tooltip attribute to draw the content.  The bubble is
    positioned below the hovered text and styled for better
    readability. */
-.clue.annot-on .indicator:hover::after,
-.clue.annot-on .fodder:hover::after,
-.clue.annot-on .def:hover::after{
+.clue.annot-on span[data-tooltip]:hover::after{
   content: attr(data-tooltip);
   position: absolute;
   left: 50%;
