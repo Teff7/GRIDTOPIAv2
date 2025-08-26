@@ -496,26 +496,30 @@ window.addEventListener('load', () => {
   let inlineLoaded = false;
   const inline = document.getElementById('puzzleData');
   if (inline && inline.textContent) {
-    try {
-      const parsed = JSON.parse(inline.textContent);
-      const converted = convertClues(parsed, CROSSWORD_ID);
-      if (converted.length) {
-        puzzle = parsed;
-        puzzle.entries = converted;
-        inlineLoaded = true;
+      try {
+        const parsed = JSON.parse(inline.textContent);
+        if (Array.isArray(parsed.entries) && parsed.entries.length) {
+          puzzle = parsed;
+          inlineLoaded = true;
+        } else {
+          const converted = convertClues(parsed, CROSSWORD_ID);
+          if (converted.length) {
+            puzzle = parsed;
+            puzzle.entries = converted;
+            inlineLoaded = true;
+          }
+        }
+      } catch (e) {
+        console.error('Inline JSON parse failed', e);
       }
-    } catch (e) {
-      console.error('Inline JSON parse failed', e);
     }
-  }
-  if (inlineLoaded) {
-    puzzle.entries = convertClues(puzzle, CROSSWORD_ID);
-    buildGrid();
-    placeEntries();
-    setCurrentEntry((puzzle.entries || [])[0]);
-    return;
-  }
-  // 2) Fallback to fetching the file relative to this location
+    if (inlineLoaded) {
+      buildGrid();
+      placeEntries();
+      setCurrentEntry((puzzle.entries || [])[0]);
+      return;
+    }
+// 2) Fallback to fetching the file relative to this location
   fetch(FILE)
     .then(r => {
       if (!r.ok) throw new Error(`Failed to load ${FILE}: ${r.status}`);
