@@ -82,12 +82,12 @@ function convertClues(puz, cwId){
         segments: (c.tooltips || []).map(t => {
           if (t.type === 'definition') {
             return { type: 'definition', text: t.section, tooltip: t.text };
-          } else if (t.type === 'fodder') {
-            return { type: 'fodder', text: t.section, tooltip: t.text };
-          } else {
-            const cat = t.type === 'literally' ? 'lit' : t.type;
-            return { type: 'indicator', category: cat, text: t.section, tooltip: t.text };
           }
+          if (t.type === 'fodder') {
+            return { type: 'fodder', text: t.section, tooltip: t.text };
+          }
+          const cat = t.type === 'literally' ? 'lit' : t.type;
+          return { type: 'indicator', category: cat, text: t.section, tooltip: t.text };
         })
       }
     };
@@ -184,12 +184,13 @@ function renderClue(ent){
     // Build annotated segments from the clue.
     // Each segment is wrapped in a span with a class corresponding to its type
     // and a data-tooltip attribute for the hover text.
-    html = segs.map(seg => {
-      const cls = seg.type === 'definition' ? 'def' : seg.type;
-      // Use provided tooltip or fall back to generic hint based on category.
-      const tip = seg.tooltip || TIP[seg.category] || '';
-      return `<span class="${cls}" data-tooltip="${escapeHtml(tip)}">${escapeHtml(seg.text)}</span>`;
-    }).join(' ');
+      html = segs.map(seg => {
+        const cat = seg.type === 'indicator' ? seg.category : seg.type;
+        const cls = seg.type === 'definition' ? 'def' : seg.type === 'indicator' ? `indicator ${cat}` : seg.type;
+        // Use provided tooltip or fall back to generic hint based on the category or type.
+        const tip = seg.tooltip || TIP[cat] || '';
+        return `<span class="${cls}" data-tooltip="${escapeHtml(tip)}">${escapeHtml(seg.text)}</span>`;
+      }).join(' ');
     // Append enumeration (answer length) in parentheses at the end.
     const enumeration = ent.answer ? String(ent.answer.length) : '';
     if (enumeration) {
