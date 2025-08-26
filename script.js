@@ -1,5 +1,6 @@
 // script.js — wired to your current index.html
 const FILE = 'Clues.json';
+const CROSSWORD_ID = '000001';
 
 // Elements
 const welcome = document.getElementById('welcome');
@@ -52,6 +53,46 @@ const TIP = {
   charade: 'Build from parts.',
   lit: 'Whole clue is both definition and wordplay.'
 };
+
+function convertClues(puz, cwId){
+  const clues = (puz.clues || []).filter(c => c.crossword === cwId);
+  const blockSet = new Set((puz.grid.blocks || []).map(([r,c]) => key(r,c)));
+  const nums = (puz.grid.numbers && puz.grid.numbers.all) || [];
+  function findStart(num, dir){
+    const label = String(num);
+    for (const [r,c,lbl] of nums){
+      if (lbl !== label) continue;
+      if (dir === 'across' && (c === 0 || blockSet.has(key(r,c-1)))) return {row:r, col:c};
+      if (dir === 'down' && (r === 0 || blockSet.has(key(r-1,c)))) return {row:r, col:c};
+    }
+    return {row:0, col:0};
+  }
+  return clues.map(c => {
+    const dir = c.direction.toUpperCase() === 'A' ? 'across' : 'down';
+    const start = findStart(c.number, dir);
+    return {
+      id: `${c.number} ${dir}`,
+      direction: dir,
+      row: start.row,
+      col: start.col,
+      answer: c.solution.toUpperCase(),
+      clue: {
+        surface: c.clue,
+        clueType: c.clueType,
+        segments: (c.tooltips || []).map(t => {
+          if (t.type === 'definition') {
+            return { type: 'definition', text: t.section, tooltip: t.text };
+          } else if (t.type === 'fodder') {
+            return { type: 'fodder', text: t.section, tooltip: t.text };
+          } else {
+            const cat = t.type === 'literally' ? 'lit' : t.type;
+            return { type: 'indicator', category: cat, text: t.section, tooltip: t.text };
+          }
+        })
+      }
+    };
+  });
+}
 
 function key(r,c){ return `${r},${c}`; }
 
@@ -160,7 +201,8 @@ function renderClue(ent){
   }
   const dirLabel = ent.direction[0].toUpperCase() + ent.direction.slice(1);
   clueHeaderEl.textContent = `${ent.id} — ${dirLabel}`;
-  clueTextEl.className = 'clue';
+  const typeClass = ent.clue && ent.clue.clueType ? (ent.clue.clueType === 'literally' ? 'lit' : ent.clue.clueType) : '';
+  clueTextEl.className = 'clue' + (typeClass ? ` ${typeClass}` : '');
   clueTextEl.innerHTML = html;
 }
 
@@ -455,8 +497,13 @@ window.addEventListener('load', () => {
   const inline = document.getElementById('puzzleData');
   if (inline && inline.textContent) {
     try {
-      puzzle = JSON.parse(inline.textContent);
-      inlineLoaded = true;
+      const parsed = JSON.parse(inline.textContent);
+      const converted = convertClues(parsed, CROSSWORD_ID);
+      if (converted.length) {
+        puzzle = parsed;
+        puzzle.entries = converted;
+        inlineLoaded = true;
+      }
     } catch (e) {
       console.error('Inline JSON parse failed', e);
     }
@@ -475,6 +522,7 @@ window.addEventListener('load', () => {
     })
     .then(json => {
       puzzle = json;
+      puzzle.entries = convertClues(puzzle, CROSSWORD_ID);
       buildGrid();
       placeEntries();
       setCurrentEntry((puzzle.entries || [])[0]);
