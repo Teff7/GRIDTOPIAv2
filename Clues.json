@@ -1,5 +1,4 @@
 {
-  "id": "2025-08-19",
   "grid": {
     "rows": 5,
     "cols": 5,
@@ -8,160 +7,273 @@
       "all": [[0,0,"1"], [0,2,"2"], [0,4,"3"], [2,0,"2"], [4,0,"3"]]
     }
   },
-  "entries": [
+  "clues": [
     {
-      "id": "1 across",
-      "direction": "",
-      "row": 0,
-      "col": 0,
-      "answer": "DISCO",
-      "clue": {
-        "surface": "At first, did I seem cautious over a certain type of fever? (5)",
-        "segments": [
-          {
-            "type": "indicator",
-            "category": "acrostic",
-            "text": "At first",
-            "tooltip": "Acrostic Indicator - take the first letters of the following words:"
-          },
-          {
-            "type": "fodder",
-            "text": "did I seem cautious over",
-            "tooltip": ";) D id I S eem C autious O ver ;)"
-          },
-          {
-            "type": "definition",
-            "text": "a certain type of fever?",
-            "tooltip": "The Definition"
-          }
-        ]
-      }
+      "crossword": "000001",
+      "direction": "A",
+      "number": 1,
+      "difficulty": 1,
+      "solution": "DEBUT",
+      "clue": "Returns \"tubed\" for his first appearance.",
+      "clueType": "reversal",
+      "definition": "his first appearance",
+      "tooltips": [
+        {"type": "definition", "section": "his first appearance", "text": "This is the Definition"},
+        {"type": "reversal", "section": "Returns", "text": "Wordplay: 'returns' tells you to reverse the letters in tubed"},
+        {"type": "fodder", "section": "tubed", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."}
+      ]
     },
     {
-      "id": "2 across",
-      "direction": "",
-      "row": 2,
-      "col": 0,
-      "answer": "INANE",
-      "clue": {
-        "surface": "Win a necktie within (Boring!) (5)",
-        "segments": [
-          {
-            "type": "indicator",
-            "category": "hidden",
-            "text": "Within",
-            "tooltip": "Look WITHIN, \"win a neck...\""
-          },
-          {
-            "type": "fodder",
-            "text": "Win a necktie",
-            "tooltip": "wINANEcktie"
-          },
-          {
-            "type": "definition",
-            "text": "(Boring!)",
-            "tooltip": "The Definition"
-          }
-        ]
-      }
+      "crossword": "000001",
+      "direction": "A",
+      "number": 2,
+      "difficulty": 2,
+      "solution": "TASTE",
+      "clue": "State is upset with your style.",
+      "clueType": "anagram",
+      "definition": "your style",
+      "tooltips": [
+        {"type": "definition", "section": "your style", "text": "This is the Definition"}
+      ]
     },
     {
-      "id": "3 across",
-      "direction": "",
-      "row": 4,
-      "col": 0,
-      "answer": "TAROT",
-      "clue": {
-        "surface": "Endlessly rotate and shuffle these cards (5)",
-        "segments": [
-          {
-            "type": "indicator",
-            "category": "deletion",
-            "text": "Endlessly",
-            "tooltip": "the next word, with no end? (ROTAT-e)"
-          },
-          {
-            "type": "fodder",
-            "text": "rotate and",
-            "tooltip": "Make it endless then follow the next instruction..."
-          },
-          {
-            "type": "indicator",
-            "category": "anagram",
-            "text": "shuffle",
-            "tooltip": "Shuffle the remaining letters (ROTAT) to get these cards..."
-          },
-          {
-            "type": "definition",
-            "text": "these cards",
-            "tooltip": "The Definition"
-          }
-        ]
-      }
+      "crossword": "000001",
+      "direction": "A",
+      "number": 3,
+      "difficulty": 3,
+      "solution": "SEDGE",
+      "clue": "Carex seen on rivers edge!",
+      "clueType": "literally",
+      "definition": "Carex seen on rivers edge",
+      "tooltips": [
+        {"type": "definition", "section": "Carex seen on rivers edge", "text": "This is the Definition"},
+        {"type": "container", "section": "seen on", "text": "Wordplay: 'Seen on' indicates that you will find the answer contained inside the words 'rivers edge'"},
+        {"type": "fodder", "section": "rivers edge", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."},
+        {"type": "literally", "section": "!", "text": "...and literally so! aka &lit, a rare clue where what you see is what you get. The exclamation mark tells you that the answer is also literally a \"Carex seen on rivers edge!\""}
+      ]
     },
     {
-      "id": "1 down",
-      "direction": "",
-      "row": 0,
-      "col": 0,
-      "answer": "DRIFT",
-      "clue": {
-        "surface": "Five hundred fight and then go with the tide. (5)",
-        "segments": [
-          {
-            "type": "indicator",
-            "category": "charade",
-            "text": "Five hundred",
-            "tooltip": "Five Hundred Romans, Perhaps? (Just one letter)"
-          },
-          {
-            "type": "fodder",
-            "text": "fight and then",
-            "tooltip": "Another word for a fight? (rhymes with \"lift\")"
-          },
-          {
-            "type": "definition",
-            "text": "go with the tide",
-            "tooltip": "The Definition"
-          }
-        ]
-      }
+      "crossword": "000001",
+      "direction": "D",
+      "number": 1,
+      "difficulty": 1,
+      "solution": "DATES",
+      "clue": "Lost within, Brad ate some wrinkly fruit.",
+      "clueType": "container",
+      "definition": "wrinkly fruit",
+      "tooltips": [
+        {"type": "definition", "section": "wrinkly fruit", "text": "This is the Definition"},
+        {"type": "container", "section": "Lost within", "text": "Wordplay: 'Lost within' indicates that you will find the answer contained inside the words 'Brad ate some'"},
+        {"type": "fodder", "section": "Brad ate some", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."}
+      ],
+      "comment": "I know the \"Lost\" isn't technically Ximenean, but I just liked the surface, hinting that Brad was so hungry and lost (Within what, a cave? A Forest?!), that he'd eaten some strange wrinkly fruit…"
     },
     {
-      "id": "2 down",
-      "direction": "",
-      "row": 0,
-      "col": 2,
-      "answer": "STAIR",
-      "clue": {
-        "surface": "A single step!, (&Lit) (5)",
-        "segments": [
-          {
-            "type": "indicator",
-            "category": "lit",
-            "text": "A single step!",
-            "tooltip": "...and literally so! aka &lit, a rare clue where what you see is what you get, sorry, not sorry, but that's all you get!"
-          }
-        ]
-      }
+      "crossword": "000001",
+      "direction": "D",
+      "number": 2,
+      "difficulty": 2,
+      "solution": "BASED",
+      "clue": "Bashed the hydrogen out to see where it's founded.",
+      "clueType": "charade",
+      "definition": "where it's founded",
+      "tooltips": [
+        {"type": "definition", "section": "where it's founded", "text": "This is the Definition"},
+        {"type": "charade", "section": "to see where", "text": "Wordplay: 'to see where' indicates that you will take actions to build the answer. What happens when you take hydrogen out of Bashed?"},
+        {"type": "fodder", "section": "Bashed the hydrogen out", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."}
+      ]
     },
     {
-      "id": "3 down",
-      "direction": "",
-      "row": 0,
-      "col": 4,
-      "answer": "OVERT",
-      "clue": {
-        "surface": "Over the top! (5) (&lit)",
-        "segments": [
-          {
-            "type": "indicator",
-            "category": "lit",
-            "text": "Over the top!",
-            "tooltip": "...and literally so! aka &lit, an.. oops, not so rare clue where - oh you get the picture, no? Over+the top of \"the\" being \"t\" Over+t = OVERT, which overtly, is over the top... and literally so."
-          }
-        ]
-      }
+      "crossword": "000001",
+      "direction": "D",
+      "number": 3,
+      "difficulty": 3,
+      "solution": "THEME",
+      "clue": "Herb's Youth-Leader leaves for the East. That's the main idea.",
+      "clueType": "charade",
+      "definition": "That's the main idea.",
+      "tooltips": [
+        {"type": "definition", "section": "That's the main idea.", "text": "This is the Definition"},
+        {"type": "charade", "section": "Herb's Youth-Leader leaves", "text": "Wordplay: Think of a Herb that fits in the space, 'Youth-Leader leaves' tells you to remove the letter Y from your herb (If you don't have a letter 'Y', I'm sorry to inform you that you chose the wrong herb.)"},
+        {"type": "charade", "section": "for the East.", "text": "Wordplay: 'for the' here plays a tricky little indicator to tell you to swap the letter out for: (E)ast - East is often an indicator for the letter 'E', from the E on a compass."}
+      ]
+    },
+
+    {
+      "crossword": "000002",
+      "direction": "A",
+      "number": 1,
+      "difficulty": 1,
+      "solution": "CODES",
+      "clue": "Programs Call of Duty, at two points.",
+      "clueType": "charade",
+      "definition": "Programs",
+      "tooltips": [
+        {"type": "definition", "section": "Programs", "text": "This is the Definition"},
+        {"type": "charade", "section": "Call of Duty", "text": "Wordplay: This much loved multiplayer first person shooter, has an abbreviation (That also happens to be a fish)"},
+        {"type": "charade", "section": "at two points", "text": "Wordplay: Two points on a compass perhaps? Try 'East' and 'South'."}
+      ]
+    },
+    {
+      "crossword": "000002",
+      "direction": "A",
+      "number": 2,
+      "difficulty": 2,
+      "solution": "ABUSE",
+      "clue": "Mistreat a public transport vehicle with ease, to start with.",
+      "clueType": "charade",
+      "definition": "Mistreat",
+      "tooltips": [
+        {"type": "definition", "section": "Mistreat", "text": "This is the Definition"},
+        {"type": "charade", "section": "a", "text": "Wordplay: nothing special here, literally just giving you the letter 'a'"},
+        {"type": "charade", "section": "public transport vehicle", "text": "Wordplay:  A three letter word for a public transport vehicle."},
+        {"type": "charade", "section": "to start with", "text": "Wordplay:  take the first letter of  'Ease'"},
+        {"type": "fodder", "section": "ease", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."}
+      ]
+    },
+    {
+      "crossword": "000002",
+      "direction": "A",
+      "number": 3,
+      "difficulty": 3,
+      "solution": "MASON",
+      "clue": "Mother and child can jar.",
+      "clueType": "charade",
+      "definition": "can jar",
+      "tooltips": [
+        {"type": "definition", "section": "can jar", "text": "This is the Definition"},
+        {"type": "charade", "section": "Mother and Child", "text": "Wordplay: A word for Mother and a word for Child make up the definition"}
+      ]
+    },
+    {
+      "crossword": "000002",
+      "direction": "D",
+      "number": 1,
+      "difficulty": 1,
+      "solution": "CHARM",
+      "clue": "Firstly, come here and read magic spell (or trinket).",
+      "clueType": "acrostic",
+      "definition": "spell (or trinket)",
+      "tooltips": [
+        {"type": "definition", "section": "spell (or trinket)", "text": "This is the Definition"},
+        {"type": "acrostic", "section": "Firstly", "text": "Wordplay: Firstly tells you to take the first letters of the next words to build the answer."},
+        {"type": "fodder", "section": "come here and read magic", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."}
+      ]
+    },
+    {
+      "crossword": "000002",
+      "direction": "D",
+      "number": 2,
+      "difficulty": 2,
+      "solution": "DRUMS",
+      "clue": "Drugs, murder, taking up how we beat them.",
+      "clueType": "charade",
+      "definition": "we beat them",
+      "tooltips": [
+        {"type": "definition", "section": "we beat them", "text": "This is the Definition"},
+        {"type": "container", "section": "taking", "text": "Wordplay: the first part of this charade tells you the answer is in the word drugS, MURDer"},
+        {"type": "reversal", "section": "up", "text": "Wordplay: 'Up' indicates a reversal, only because this is a down clue. Take the letters in drugS, MURDer, reverse them and see if you can find a word inside…"}
+      ]
+    },
+    {
+      "crossword": "000002",
+      "direction": "D",
+      "number": 3,
+      "difficulty": 3,
+      "solution": "SKEIN",
+      "clue": "Some yarn about Nikes.",
+      "clueType": "anagram",
+      "definition": "Some yarn",
+      "tooltips": [
+        {"type": "definition", "section": "Some yarn", "text": "This is the Definition"},
+        {"type": "anagram", "section": "about", "text": "Wordplay: 'about' is an anagram indicator, (anagrind to experienced crossworders). This word tells you to mix up the letters in NIKES to get a word that means 'some yarn'"},
+        {"type": "fodder", "section": "Nikes", "text": "Wordplay: These letters are what we call the \"fodder\", these are the letters (or words) that you use to make up your answer."}
+      ]
+    },
+
+    {
+      "crossword": "000003",
+      "direction": "A",
+      "number": 1,
+      "difficulty": 1,
+      "solution": "DISCO",
+      "clue": "At first, did I seem cautious over a certain type of fever?",
+      "clueType": "acrostic",
+      "definition": "a certain type of fever?",
+      "tooltips": [
+        {"type": "definition", "section": "a certain type of fever?", "text": "This is the Definition"},
+        {"type": "acrostic", "section": "At first", "text": "Wordplay: at first is an 'acrostic indicator' - take the first letters of the following words: ';) D id I S eem C autious O ver ;)"},
+        {"type": "fodder", "section": "Did I seem cautious over", "text": "Wordplay: These letters are what we call the \"fodder\", these are the letters (or words) that you use to make up your answer."}
+      ]
+    },
+    {
+      "crossword": "000003",
+      "direction": "A",
+      "number": 2,
+      "difficulty": 2,
+      "solution": "INANE",
+      "clue": "Win a necktie within (Boring!).",
+      "clueType": "container",
+      "definition": "Boring!",
+      "tooltips": [
+        {"type": "definition", "section": "Boring!", "text": "This is the Definition"},
+        {"type": "container", "section": "within", "text": "Wordplay: Look WITHIN, 'win a neck...'"},
+        {"type": "fodder", "section": "Win a necktie", "text": "Wordplay: These letters are what we call the 'fodder', these are the letters (or words) that you use to make up your answer."}
+      ]
+    },
+    {
+      "crossword": "000003",
+      "direction": "A",
+      "number": 3,
+      "difficulty": 3,
+      "solution": "TAROT",
+      "clue": "Endlessly rotate and shuffle these cards.",
+      "clueType": "charade",
+      "definition": "these cards",
+      "tooltips": [
+        {"type": "definition", "section": "these cards", "text": "This is the Definition"},
+        {"type": "deletion", "section": "Endlessly", "text": "Wordplay: Endlessly often indicates deletion of the end of a word, in this case the next word with no end\" (ROTAT-e)"},
+        {"type": "anagram", "section": "and shuffle", "text": "Wordplay: 'and shuffle' 'about' is an anagram indicator, (anagrind to experienced crossworders). This word tells you to mix up the letters in ROTAT to get a word that means 'cards'"}
+      ]
+    },
+    {
+      "crossword": "000003",
+      "direction": "D",
+      "number": 1,
+      "difficulty": 1,
+      "solution": "DRIFT",
+      "clue": "Five hundred fight and then go with the tide.",
+      "clueType": "charade",
+      "definition": "go with the tide",
+      "tooltips": [
+        {"type": "definition", "section": "go with the tide", "text": "This is the Definition"}
+      ]
+    },
+    {
+      "crossword": "000003",
+      "direction": "D",
+      "number": 2,
+      "difficulty": 2,
+      "solution": "STAIR",
+      "clue": "A single step!",
+      "clueType": "literally",
+      "definition": "A single step!",
+      "tooltips": [
+        {"type": "literally", "section": "A single step!", "text": "...and literally so! aka &lit, a rare clue where what you see is what you get, sorry, not sorry, but that's all you get!"}
+      ]
+    },
+    {
+      "crossword": "000003",
+      "direction": "D",
+      "number": 3,
+      "difficulty": 3,
+      "solution": "OVERT",
+      "clue": "Over the top!",
+      "clueType": "literally",
+      "definition": "Over the top!",
+      "tooltips": [
+        {"type": "literally", "section": "Over the top!", "text": "...and literally so! aka &lit, an.. oops, not so rare clue where - oh you get the picture, no? Over+the top of \"the\" being \"t\" Over+t = OVERT, which overtly, is over the top... and literally so."}
+      ]
     }
   ]
 }
